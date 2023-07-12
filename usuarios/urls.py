@@ -6,5 +6,6 @@ urlpatterns = [
          name='cadastrar_vendedor'),
     path('login/', views.login, name='login'),
     path('sair/', views.logout, name='sair'),
+    path('excluir_usuario/<str:id>', views.excluir_usuario, name='excluir_usuario'),
 
 ]

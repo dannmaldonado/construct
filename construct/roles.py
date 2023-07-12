@@ -6,6 +6,7 @@ class Gerente(AbstractUserRole):
         'cadastrar_produtos': True,
         'liberar_descontos': True,
         'cadastrar_vendedor': True,
+        'excluir_vendedor': True,
     }
 
 
