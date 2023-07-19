@@ -8,8 +8,11 @@ from django.core.files.uploadedfile import InMemoryUploadedFile
 import sys
 from django.urls import reverse
 from django.contrib import messages
+from rolepermissions.decorators import has_permission_decorator
+from .forms import ProdutoForm
 
 
+@has_permission_decorator('cadastrar_produtos')
 def add_produto(request):
     if request.method == "GET":
         categorias = Categoria.objects.all()
@@ -57,3 +60,12 @@ def add_produto(request):
         messages.add_message(request, messages.SUCCESS,
                              'Produto cadastrato com sucesso')
         return redirect(reverse('add_produto'))
+
+
+def produto(request, slug):
+    if request.method == "GET":
+        produto = Produto.objects.get(slug=slug)
+        data = produto.__dict__
+        data['categoria'] = produto.categoria.id
+        form = ProdutoForm(initial=data)
+        return render(request, 'produto.html', {'form': form})
